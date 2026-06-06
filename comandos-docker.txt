@@ -1,0 +1,17 @@
+docker network create biblioteca-network
+
+docker run --name biblioteca-db -p 5433:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=senha -e POSTGRES_DB=biblioteca --network biblioteca-network -d postgres
+
+docker run --name pgadmin4 -p 15433:80 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin --network biblioteca-network -d dpage/pgadmin4
+
+docker run --name biblioteca-redis -p 6379:6379 -d redis
+
+docker exec -it biblioteca-redis redis-cli
+
+docker rm nome-container
+
+postgresql://postgres:senha@localhost:5433/biblioteca
+redis://localhost:6379
+
+docker ps
+docker ps -a
